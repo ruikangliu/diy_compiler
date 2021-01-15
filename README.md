@@ -1,7 +1,5 @@
 ﻿- **代码已上传至** [Github](https://github.com/lianli-o/diy_compiler.git)
 
-@[TOC](目录)
-
 
 
 # 源语言、语义动作、中间代码定义
