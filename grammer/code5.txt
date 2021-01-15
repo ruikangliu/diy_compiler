@@ -1,0 +1,32 @@
+{
+	int a, b;
+	real c, d;
+	int e, g, h;
+	a = 1.3e3;
+	
+	if !(a * -b >= c + d    // 缺少右圆括号
+	then
+	{
+		e = g + h;
+	}
+	else
+		e = g * h;
+
+	do{
+		a = 1;
+	}while (true)   // 缺少分号
+	{
+		int a;
+		a = 1;      // 缺少右大括号
+            
+	if (1)
+	then a = 3;
+
+	while a >= 10
+	do
+	{
+		if (a == a * b)
+		then
+			a = a - 1;  // 缺少右大括号
+    
+}

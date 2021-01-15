@@ -1,0 +1,33 @@
+{
+	int b;  // 无定义
+	real c, d;
+	int e, g, h;
+	a = 1.3e3;
+	
+	if !(a * -b >= c + d)
+	then
+	{
+		e = g + h;
+	}
+	else
+		e = g * h;
+
+	while a >= 10
+	do
+	{
+		if (a == a * b)
+		then
+			a = a - 1;
+		b = b + 1
+	}
+	{
+		int a;
+		a = 1;
+	}
+	do{
+		a = 1;
+	}while (true);
+
+	if (1
+	then a = 3
+}

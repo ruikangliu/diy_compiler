@@ -1,0 +1,79 @@
+program -> block
+block -> { decls stmts }
+
+decls -> decl ; decls
+decls -> $
+decl -> decl , id
+decl -> int id
+decl -> real id
+
+stmts -> LS stmt
+stmts -> $
+LS -> stmts
+
+stmt -> C stmt
+stmt -> TP stmt
+C -> if bool then
+TP -> C stmt else
+
+stmt -> Wd stmt
+stmt -> Ww bool ;
+Wd -> W bool D
+Ww -> D stmt W
+W -> while
+D -> do
+
+stmt -> id = expr ;
+stmt -> block
+
+expr -> expr + term
+expr -> expr - term
+expr -> term
+term -> term * unary
+term -> term / unary
+term -> unary
+unary -> - unary
+unary -> factor
+factor -> ( expr )
+factor -> id
+factor -> num
+
+bool -> boolor join
+bool -> join
+join -> joinand boolterm
+join -> boolterm
+boolor -> bool or
+joinand -> join and
+boolterm -> equality
+equality -> equality == rel
+equality -> equality != rel
+equality -> rel
+equality -> true
+equality -> false
+rel -> rel < relexpr
+rel -> rel <= relexpr
+rel -> rel >= relexpr
+rel -> rel > relexpr
+rel -> relexpr
+relexpr -> relexpr + relterm
+relexpr -> relexpr - relterm
+relexpr -> relterm
+relterm -> relterm * relunary
+relterm -> relterm / relunary
+relterm -> relunary
+relunary -> ! relunary
+relunary -> - relunary
+relunary -> relfactor
+relfactor -> ( bool )
+relfactor -> id
+relfactor -> num
+# 
+
+program block decls stmts decl LS stmt C TP Wd Ww W D expr term
+unary factor bool join boolor joinand boolterm equality rel 
+relexpr relterm relunary relfactor
+#
+{ } ; , id int real if then else while do = + - * / ! ( ) num or and
+== != true false < <= >= >
+#
+
