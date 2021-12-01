@@ -1,5 +1,5 @@
 #include "parser.h"
-#include "string"
+#include <string>
 #include <iostream>
 #include <vector>
 #include <exception>
@@ -10,38 +10,38 @@ using std::string;
 using std::vector;
 using std::runtime_error;
 
-// ½«´Ê·¨µ¥Ôª Token ×ªÎªÓï·¨·ÖÎöÖĞµÄÖÕ½á·û
-// ÎÒÄ¿Ç°¶¨ÒåµÄÎÄ·¨ÖĞÓĞ id, num ÊÇ´øÊôĞÔµÄ£¬ÕâĞ©·ûºÅÒª½«ÏàÓ¦ÊôĞÔ´«µİ¸øÓïÒå·ÖÎö´¦Àí
+// å°†è¯æ³•å•å…ƒ Token è½¬ä¸ºè¯­æ³•åˆ†æä¸­çš„ç»ˆç»“ç¬¦
+// æˆ‘ç›®å‰å®šä¹‰çš„æ–‡æ³•ä¸­æœ‰ id, num æ˜¯å¸¦å±æ€§çš„ï¼Œè¿™äº›ç¬¦å·è¦å°†ç›¸åº”å±æ€§ä¼ é€’ç»™è¯­ä¹‰åˆ†æå¤„ç†
 Parser::sym_t Parser::token_to_grammer_sym(Token* token)
 {	
 	Parser::sym_t grammer_sym;
 	
 	if (token->tag < 255)	
 	{
-		// ÊÇµ¥¸ö·ûºÅ£¬ÕâÀà´Ê·¨µ¥ÔªÖ±½Ó·µ»Ø´ÊËØ¼´¿É
+		// æ˜¯å•ä¸ªç¬¦å·ï¼Œè¿™ç±»è¯æ³•å•å…ƒç›´æ¥è¿”å›è¯ç´ å³å¯
 		// { } ; , = + - * / ! ( ) < >
 		grammer_sym.push_back(static_cast<char>(token->tag));
 	}
 	else if (token->tag > Token::KEYWORD_POS)
 	{
-		// ÊÇ¹Ø¼ü×Ö£¬ÕâÀà´Ê·¨µ¥ÔªÖ±½Ó·µ»Ø´ÊËØ¼´¿É
+		// æ˜¯å…³é”®å­—ï¼Œè¿™ç±»è¯æ³•å•å…ƒç›´æ¥è¿”å›è¯ç´ å³å¯
 		// int real if then else while do or and true false
 		grammer_sym = dynamic_cast<Word*>(token)->lexeme;
 	}
 	else if (token->tag == Token::REL_OPT)
 	{
-		// ÊÇ¹ØÏµÔËËã·û£¬ÕâÀà´Ê·¨µ¥ÔªÖ±½Ó·µ»Ø´ÊËØ¼´¿É
+		// æ˜¯å…³ç³»è¿ç®—ç¬¦ï¼Œè¿™ç±»è¯æ³•å•å…ƒç›´æ¥è¿”å›è¯ç´ å³å¯
 		// == !=  <= >= 
 		grammer_sym = dynamic_cast<RelOpt*>(token)->lexeme;
 	}
 	else if (token->tag == Token::NUM)
 	{
-		// num Êı×Ö³£Á¿
+		// num æ•°å­—å¸¸é‡
 		grammer_sym = "num";
 	}
 	else if (token->tag == Token::ID)
 	{
-		// id ±êÊ¶·û
+		// id æ ‡è¯†ç¬¦
 		grammer_sym = "id";
 	}
 
@@ -51,17 +51,17 @@ Parser::sym_t Parser::token_to_grammer_sym(Token* token)
 void Parser::parser_analyze(std::string new_file_name, bool verbose)
 {
 	Token* ptoken;
-	vector<Parser::sym_t> grammer_program;	// ½«´Ê·¨·ÖÎö½á¹û×ª´æÎªÓï·¨·ÖÎöÆ÷ËùĞèµÄ¸ñÊ½
+	vector<Parser::sym_t> grammer_program;	// å°†è¯æ³•åˆ†æç»“æœè½¬å­˜ä¸ºè¯­æ³•åˆ†æå™¨æ‰€éœ€çš„æ ¼å¼
 	
 	lexer.bind_new_src_file(path_prefix + new_file_name);
 
-	// ´Ê·¨·ÖÎö£¬Êä³ö½á¹û´æÔÚ lexer.tokens ÖĞ
+	// è¯æ³•åˆ†æï¼Œè¾“å‡ºç»“æœå­˜åœ¨ lexer.tokens ä¸­
 	while (ptoken = lexer.gen_token())
 	{
 		ptoken->print(cout) << endl;
 		grammer_program.push_back(token_to_grammer_sym(ptoken));
 	}
-	grammer_program.push_back("#");	// Ôö¼ÓÒ»¸ö½áÊø·ûºÅ
+	grammer_program.push_back("#");	// å¢åŠ ä¸€ä¸ªç»“æŸç¬¦å·
 
 	lr1.driver(grammer_program, lexer.tokens, verbose);
 
