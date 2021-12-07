@@ -50,7 +50,7 @@ Parser::sym_t Parser::token_to_grammer_sym(Token* token)
 
 void Parser::parser_analyze(std::string new_file_name, bool verbose)
 {
-	Token* ptoken;
+	Token* ptoken = nullptr;
 	vector<Parser::sym_t> grammer_program;	// 将词法分析结果转存为语法分析器所需的格式
 	
 	lexer.bind_new_src_file(path_prefix + new_file_name);
